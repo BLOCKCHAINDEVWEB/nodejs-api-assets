@@ -1,0 +1,26 @@
+{
+  "name": "nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node -r esm server.js",
+    "start:ipfs": "node -r esm src/ipfsMetadata.js",
+    "dev": "nodemon -r esm server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^9.0.1",
+    "esm": "^3.2.25",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "axios": "^0.21.1",
+    "ffprobe": "^1.1.2",
+    "ffprobe-static": "^3.0.0",
+    "ipfs-api": "^26.1.2",
+    "nodemon": "^2.0.4",
+    "request-image-size": "^2.2.0"
+  }
+}
