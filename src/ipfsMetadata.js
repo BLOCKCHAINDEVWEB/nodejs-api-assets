@@ -9,51 +9,66 @@ import ffprobeStatic from 'ffprobe-static'
 const ipfs = new IPFSAPI({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' })
 
 const execute = async () => {
-  const CID = 'QmaQNPLWTSKNXCvzURSi3WrkywJ1qcnYC56Dw1XMrxYZ7Z'
-  const result = await ipfs.files.get(CID)
-  result.forEach(file => {
-    console.log(file.path)
-    console.log(file.content.toString('utf8'))
-  })
-
-  const metadata = {
-    title: '',
-    item_name: '',
-    author: '',
-    description: '',
-    type: '',
-    assertURI: '',
-    properties: {
-      width: '',
-      height: '',
-      duration: '',
-      supply: ''
-    }
-  }
-
-  const downloadFile = async (fileUrl, downloadFolder) => {
-    // Get the file name
+  const downloadFile = async (datas, downloadFolder) => {
+    const params = datas.id
+    // const fileUrl = 'http://localhost:3000/video/bigbuck.mp4'
+    const fileUrl = datas.assertURI
     const fileName = path.basename(fileUrl);
-  
     // The path of the downloaded file on our machine
-    const localFilePath = path.resolve(__dirname, downloadFolder, fileName);
+    const localFilePath = path.resolve(__dirname, downloadFolder, fileName)
+
     try {
       const resp = await axios({
         method: 'GET',
         url: fileUrl,
         responseType: 'stream',
-      });
+      })
+      let newInfos
+  
+      const update = async (params, newInfos) => {
+        await axios({
+          method: 'PUT',
+          url: `http://localhost:3000/api/posts/${params}`,
+          data: newInfos
+        })
+      }
 
       if (fileName.split('.').pop() === 'jpg') {
-        const reqImg = await requestImageSize(fileUrl)
-        console.log(reqImg)
+        const { height, width, type } = await requestImageSize(fileUrl)
+
+        newInfos = {
+          title: datas.title,
+          item_name: datas.item_name,
+          author: datas.author,
+          description: datas.description,
+          type,
+          assertURI: fileUrl,
+          properties: {
+            width,
+            height
+          }
+        }
+
+        await update(params, newInfos)
+
       } else if (fileName.split('.').pop() === 'mp4') {
-        await ffprobe(fileUrl, { path: ffprobeStatic.path }, (err, info) => {
+        await ffprobe(fileUrl, { path: ffprobeStatic.path }, async (err, info) => {
           if (err) return done(err);
-          // console.log(info)
-          console.log(info.streams[0].width)
-          console.log(info.streams[0].height)
-          console.log(Math.floor(info.streams[1].duration))
+
+          newInfos = {
+            title: datas.title,
+            item_name: datas.item_name,
+            author: datas.author,
+            description: datas.description,
+            type,
+            properties: {
+              width: info.streams[0].width,
+              height: info.streams[0].height,
+              duration: Math.floor(info.streams[1].duration)
+            }
+          }
+
+          await update(params, newInfos)
         })
       }
 
@@ -65,14 +80,28 @@ const execute = async () => {
     } catch (err) {
       throw new Error(err);
     }
-  }; 
+  }
 
-  const urlImg = 'http://localhost:3000/img/Orientation_512x512.jpg'
-  downloadFile(urlImg, 'download')
+  const getPostId = async params => {
+    const { data } = await axios({
+      method: 'GET',
+      url: `http://localhost:3000/api/posts/${params}`,
+      responseType: 'json',
+    });
+    return data
+  }
 
-  const urlVideo = 'http://localhost:3000/video/bigbuck.mp4'
-  downloadFile(urlVideo, 'download')
+  const datas = await getPostId(1)
+  await downloadFile(datas, 'download')
 
+  // to following
+
+  const CID = 'QmaQNPLWTSKNXCvzURSi3WrkywJ1qcnYC56Dw1XMrxYZ7Z'
+  const result = await ipfs.files.get(CID)
+  result.forEach(file => {
+    console.log(file.path)
+    console.log(file.content.toString('utf8'))
+  })
 
 }
 execute()
