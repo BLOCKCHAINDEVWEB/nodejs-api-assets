@@ -1,4 +1,5 @@
-const fs = require('fs')
+// const fs = require('fs')
+import fs from 'fs'
 
 // Searching in the array the last id ans increment of 1 to return a new id
 const getNewId = (array) => {
@@ -36,9 +37,16 @@ function writeJSONFile(filename, content) {
     })
 }
 
-module.exports = {
-    getNewId,
-    newDate,
-    mustBeInArray,
-    writeJSONFile
+// module.exports = {
+//     getNewId,
+//     newDate,
+//     mustBeInArray,
+//     writeJSONFile
+// }
+
+export default {
+  getNewId,
+  newDate,
+  mustBeInArray,
+  writeJSONFile
 }

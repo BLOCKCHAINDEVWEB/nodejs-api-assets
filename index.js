@@ -1,7 +1,11 @@
-const path = require('path');
-const express = require('express');
-const fs = require('fs');
+// const path = require('path');
+// const express = require('express');
+// const fs = require('fs');
 // const { html } = require('./assets/html/html');
+import path from 'path'
+import fs from 'fs'
+import express from 'express'
+import { html } from './assets/html/html'
 require('dotenv').config({ path: path.join(__dirname, './.env') });
 
 const app = express();
@@ -53,8 +57,12 @@ app.use(require('./api/index.routes'));
 
 // const PORT = process.env.PORT || 8080;
 
-// app.listen(PORT, () => {
-//   console.log(`Server is running on port ${PORT}.`);
-// });
+// if (NODE === 'Developement') {
+//   app.listen(PORT, () => {
+//     console.log(`Server is running on port ${PORT}.`);
+//   });
+// } else {
+  // module.exports = app;
+// }
 
-module.exports = app;
+export default app

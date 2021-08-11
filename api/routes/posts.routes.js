@@ -1,7 +1,11 @@
-const express = require('express')
+import express from 'express'
+import post from '../models/posts.model'
+import m from '../helpers/middlewares'
+// const express = require('express')
+// const post = require('../models/posts.model')
+// const m = require('../helpers/middlewares')
+
 const router = express.Router()
-const post = require('../models/posts.model')
-const m = require('../helpers/middlewares')
 
 /* All posts */
 router.get('/', async (req, res) => {
@@ -74,4 +78,5 @@ router.delete('/:id', m.mustBeInteger, async (req, res) => {
     })
 })
 
-module.exports = router;
+// module.exports = router;
+export default router

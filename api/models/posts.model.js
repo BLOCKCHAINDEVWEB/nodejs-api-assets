@@ -1,6 +1,11 @@
-let posts = require('../data/posts.json')
-const filename = './data/posts.json'
-const helper = require('../helpers/helper.js')
+import postsDatas from '../data/posts.json'
+import filename from './data/posts.json'
+import helper from '../helpers/helper.js'
+// let posts = require('../data/posts.json')
+// const filename = './data/posts.json'
+// const helper = require('../helpers/helper.js')
+
+let posts = postsDatas
 
 function getPosts() {
     return new Promise((resolve, reject) => {
@@ -67,10 +72,18 @@ function deletePost(id) {
     })
 }
 
-module.exports = {
-    insertPost,
-    getPosts,
-    getPost, 
-    updatePost,
-    deletePost
+// module.exports = {
+//     insertPost,
+//     getPosts,
+//     getPost, 
+//     updatePost,
+//     deletePost
+// }
+
+export default {
+  insertPost,
+  getPosts,
+  getPost, 
+  updatePost,
+  deletePost
 }
