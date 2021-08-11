@@ -2,9 +2,11 @@
   "name": "nodejs",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "api/index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node api/index.js",
+    "start:ipfs": "node -r esm src/ipfsMetadata.js",
+    "dev": "nodemon -r esm server.js"
   },
   "author": "",
   "license": "ISC",
