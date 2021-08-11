@@ -2,9 +2,9 @@
   "name": "nodejs",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "api/app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "node api/app.js",
     "start:ipfs": "node -r esm src/ipfsMetadata.js",
     "dev": "nodemon -r esm server.js"
   },

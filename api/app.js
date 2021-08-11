@@ -2,7 +2,7 @@ const path = require('path');
 const express = require('express');
 const fs = require('fs');
 // const { html } = require('./assets/html/html');
-require('dotenv').config({ path: path.join(__dirname, './.env') });
+require('dotenv').config({ path: path.join(__dirname, '../../.env') });
 
 const app = express();
 
