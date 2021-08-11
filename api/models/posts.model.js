@@ -1,11 +1,10 @@
 import postsDatas from '../data/posts.json'
-import filename from './data/posts.json'
 import helper from '../helpers/helper.js'
 // let posts = require('../data/posts.json')
-// const filename = './data/posts.json'
 // const helper = require('../helpers/helper.js')
 
 let posts = postsDatas
+const filename = './data/posts.json'
 
 function getPosts() {
     return new Promise((resolve, reject) => {

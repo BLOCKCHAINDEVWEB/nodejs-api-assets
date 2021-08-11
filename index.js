@@ -5,7 +5,8 @@
 import path from 'path'
 import fs from 'fs'
 import express from 'express'
-import { html } from './assets/html/html'
+// import { html } from './assets/html/html'
+import routes from './api/index.routes'
 require('dotenv').config({ path: path.join(__dirname, './.env') });
 
 const app = express();
@@ -53,16 +54,14 @@ app.get('/', (req, res, next)=>{
 // });
 
 // datas renders
-app.use(require('./api/index.routes'));
+app.use('/api', routes)
 
-// const PORT = process.env.PORT || 8080;
-
-// if (NODE === 'Developement') {
+// if (process.env.NODE_ENV === 'developement') {
+//   const PORT = process.env.PORT || 8080;
 //   app.listen(PORT, () => {
 //     console.log(`Server is running on port ${PORT}.`);
 //   });
 // } else {
   // module.exports = app;
+  export default app
 // }
-
-export default app
