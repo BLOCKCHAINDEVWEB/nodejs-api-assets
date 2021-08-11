@@ -49,7 +49,7 @@ app.get('/', (req, res, next)=>{
 // });
 
 // datas renders
-app.use(require('./api/routes/index.routes'));
+app.use(require('./api/index.routes'));
 
 // const PORT = process.env.PORT || 8080;
 
