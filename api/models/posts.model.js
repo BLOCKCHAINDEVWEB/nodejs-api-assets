@@ -1,7 +1,5 @@
 import postsDatas from '../data/posts.json'
 import helper from '../helpers/helper.js'
-// let posts = require('../data/posts.json')
-// const helper = require('../helpers/helper.js')
 
 let posts = postsDatas
 const filename = './data/posts.json'
@@ -70,14 +68,6 @@ function deletePost(id) {
         .catch(err => reject(err))
     })
 }
-
-// module.exports = {
-//     insertPost,
-//     getPosts,
-//     getPost, 
-//     updatePost,
-//     deletePost
-// }
 
 export default {
   insertPost,

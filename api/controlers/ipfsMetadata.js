@@ -1,32 +1,29 @@
 import dotenv from 'dotenv'
 import path from 'path'
 import fs from 'fs'
-import IPFSAPI from 'ipfs-api'
-import pinataSDK from '@pinata/sdk'
 import axios from 'axios'
 import FormData from 'form-data'
 import requestImageSize from 'request-image-size'
 import ffprobe from 'ffprobe'
 import ffprobeStatic from 'ffprobe-static'
+import pinata from '../services/pinata'
+import ipfs from '../services/ipfs'
 dotenv.config({ path: path.join(__dirname, '../.env') })
 
-const ipfs = new IPFSAPI({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' })
-const pinata = pinataSDK(process.env.PINATA_KEY, process.env.PINATA_SECRET)
 
+// export const update = async (params, newInfos) => {
+//   try {
+//     const resp = await axios({
+//       method: 'PUT',
+//       url: `http://localhost:3000/api/posts/${params}`,
+//       data: newInfos
+//     })
 
-export  const update = async (params, newInfos) => {
-  try {
-    const resp = await axios({
-      method: 'PUT',
-      url: `http://localhost:3000/api/posts/${params}`,
-      data: newInfos
-    })
-
-    return resp
-  } catch (err) {
-    console.log(err)
-  }
-}
+//     return resp
+//   } catch (err) {
+//     console.log(err)
+//   }
+// }
 
 export const pinJSONToIPFS = async json => {
   try {

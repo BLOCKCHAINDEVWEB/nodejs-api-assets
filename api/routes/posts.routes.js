@@ -1,9 +1,6 @@
 import express from 'express'
 import post from '../models/posts.model'
 import m from '../helpers/middlewares'
-// const express = require('express')
-// const post = require('../models/posts.model')
-// const m = require('../helpers/middlewares')
 
 const router = express.Router()
 
@@ -78,5 +75,4 @@ router.delete('/:id', m.mustBeInteger, async (req, res) => {
     })
 })
 
-// module.exports = router;
 export default router

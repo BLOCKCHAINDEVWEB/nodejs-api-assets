@@ -22,11 +22,6 @@ function checkFieldsPost(req, res, next) {
   }
 }
 
-// module.exports = {
-//   mustBeInteger,
-//   checkFieldsPost
-// }
-
 export default {
   mustBeInteger,
   checkFieldsPost
