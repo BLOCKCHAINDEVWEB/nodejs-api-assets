@@ -6,9 +6,9 @@ import roots from './routes/roots.routes'
 
 const router = express.Router()
 
-router.use('/posts', posts)
-router.use('/ipfs', ipfs)
+// router.use('/posts', posts)
+// router.use('/ipfs', ipfs)
 router.use('/child', childs)
-router.use('/root', roots)
+// router.use('/root', roots)
 
 export default router

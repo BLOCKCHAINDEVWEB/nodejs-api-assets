@@ -1,7 +1,12 @@
+import dotenv from 'dotenv'
+import path from 'path'
 import { ethers } from 'ethers'
 import * as sigUtil from 'eth-sig-util'
 import * as ethUtil from 'ethereumjs-util'
+// import KoChild from '../artifacts/tokenNFT.json'
+import KoChild from '../artifacts/KoChildMintableERC721.json'
 
+dotenv.config({ path: path.join(__dirname, '../../.env') })
 
 export const chainId = {
   chainMumbai: 80001,
@@ -138,17 +143,26 @@ export const getTxDataDeposit = async datas => {
 
 export const nftContractIsDeploy = async (name, symbol) => {
   try {
-    // The factory we use for deploying contracts
-    const factory = new ethers.ContractFactory(nftContratFactory.abi, nftContratFactory.bytecode, signerChild)
-    // Deploy an instance of the contract
-    const nftContract = await factory.deploy(name, symbol, childChainManager)
-    // The transaction that the signer sent to deploy
-    await nftContract.deployTransaction
-    // Wait until the transaction is mined (i.e. contract is deployed)
-    const result = await nftContract.deployTransaction.wait()
+    // polygon node url
+    const privateKey = process.env.PRIVATE_KEY
+    const childChainManager = '0xb5505a6d998549090530911180f38aC5130101c6'
+    const maticProvider = 'https://rpc-mumbai.maticvigil.com/v1/339bfd1060db13f0f39cac79e2cca45b637c93e9'
+    const providerChild = new ethers.providers.JsonRpcProvider(maticProvider)
 
-    res.status(200).json({ status: 'success', nftContract: nftContract.address, txHash: result.transactionHash })
+    const walletChild = new ethers.Wallet(privateKey)
+    const signerChild = walletChild.connect(providerChild)
+    // The factory we use for deploying contracts
+    const factory = new ethers.ContractFactory(KoChild.abi, KoChild.bytecode, signerChild)
+    // Deploy an instance of the contract
+    const childNftContract = await factory.deploy(name, symbol, childChainManager)
+    // The transaction that the signer sent to deploy
+    await childNftContract.deployTransaction
+    // Wait until the transaction is mined (i.e. contract is deployed)
+    const txDeploy = await childNftContract.deployTransaction.wait()
+    const { contractAddress, transactionHash } = txDeploy
+
+    return { contractAddress, transactionHash }
   } catch (err) {
-    res.status(500).json({ message: err.message })
+    console.log(err)
   }
 }
