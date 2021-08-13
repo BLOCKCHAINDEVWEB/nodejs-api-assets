@@ -3,7 +3,7 @@ content-type: application/json
 
 {
   "from": "0x43e6B95803ac909f31C46517691cd2e33e298e40",
-  "upload": "paysage.jpg",
+  "upload": "http://localhost:3000/img/Orientation_512x512.jpg",
   "name": "My token image",
   "symbol": "IMG",
   "description": "Token image paysage"

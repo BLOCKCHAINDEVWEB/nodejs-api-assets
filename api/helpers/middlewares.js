@@ -1,3 +1,6 @@
+import { ethers } from 'ethers'
+import nftContratFactory from '../artifacts/childMintableERC721.json'
+
 // Check before to continue if the id is an integer
 // Using when need to get the id (RUD)
 function mustBeInteger(req, res, next) {

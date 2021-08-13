@@ -38,4 +38,46 @@ router.post('/grantRole', async (req, res) => {
   }
 })
 
+// Fail with error 'ERC721: owner query for nonexistent token'
+router.post('/approve', async (req, res) => {
+  try {
+    const { from, tokenId } = req.body
+
+    const dataTx = { predicate, tokenId }
+    const { gasPrice, gasLimit } = await estimateFeeGas(providerParent, dataTx)
+
+    const tx = await rootContract.approve(predicate, tokenId, {
+      from: from,
+      gasPrice: gasPrice,
+      gasLimit: gasLimit
+    })
+    console.log(tx)
+
+    res.status(200).json({ status: 'success', txHash: tx.hash })
+  } catch (err) {
+    res.status(500).json({ message: err.message })
+  }
+})
+
+router.post('/deposit', async (req, res) => {
+  try {
+    const { userAddress, rootToken, tokenId } = req.body
+
+    const depositData = ethers.encodeParameter('uint256', tokenId)
+    const dataTx = { userAddress, rootToken, depositData }
+    const { gasPrice, gasLimit } = await estimateFeeGas(providerParent, dataTx)
+
+    const tx = await rootChainManager.depositFor(userAddress, rootToken, depositData, {
+      from: userAddress,
+      gasPrice: gasPrice,
+      gasLimit: gasLimit
+    })
+    console.log(tx)
+
+    res.status(200).json({ status: 'success', txHash: tx.hash })
+  } catch (err) {
+    res.status(500).json({ message: err.message })
+  }
+})
+
 export default router

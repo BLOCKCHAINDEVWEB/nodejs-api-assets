@@ -134,3 +134,21 @@ export const getTxDataDeposit = async datas => {
   const { r, s, v } = ethUtil.fromRpcSig(sig)
   return { fctSign, r, s, v }
 }
+
+
+export const nftContractIsDeploy = async (name, symbol) => {
+  try {
+    // The factory we use for deploying contracts
+    const factory = new ethers.ContractFactory(nftContratFactory.abi, nftContratFactory.bytecode, signerChild)
+    // Deploy an instance of the contract
+    const nftContract = await factory.deploy(name, symbol, childChainManager)
+    // The transaction that the signer sent to deploy
+    await nftContract.deployTransaction
+    // Wait until the transaction is mined (i.e. contract is deployed)
+    const result = await nftContract.deployTransaction.wait()
+
+    res.status(200).json({ status: 'success', nftContract: nftContract.address, txHash: result.transactionHash })
+  } catch (err) {
+    res.status(500).json({ message: err.message })
+  }
+}
