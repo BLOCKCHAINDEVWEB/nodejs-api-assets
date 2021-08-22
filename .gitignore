@@ -1,3 +1,9 @@
 node_modules/
 .env
 src/
+api/artifacts4/
+api/artifacts5/
+config4.js
+config5.js
+queries/childs-test4KO.http
+queries/childs-test5KO.http

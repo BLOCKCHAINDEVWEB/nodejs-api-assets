@@ -24,10 +24,10 @@ pinata_api_key: 7d7e3c042e0e43eac657
 pinata_secret_api_key: cd8123ee3649aec0e3ba380b1588376bc20c3c520fecba6ed41819058d79ae8b
 
 {
-  "title":"",
-  "item_name": "",
-  "author": "datas.author",
-  "description": "datas.description",
+  "title":"title",
+  "item_name": "item name",
+  "author": "author",
+  "description": "description",
   "type": "",
   "assertURI": "",
   "properties": {
@@ -44,4 +44,9 @@ pinata_secret_api_key: cd8123ee3649aec0e3ba380b1588376bc20c3c520fecba6ed41819058
 {
   "hashToPin": "QmaQNPLWTSKNXCvzURSi3WrkywJ1qcnYC56Dw1XMrxYZ7Z"
 }
+###
+POST http://localhost:3000/api/ipfs/ipfsText  HTTP/1.1
+content-type: application/json
+
+{}
 ###

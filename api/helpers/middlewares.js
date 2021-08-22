@@ -15,10 +15,10 @@ function mustBeInteger(req, res, next) {
 function checkFieldsPost(req, res, next) {
   const { title, item_name, author, description, type, assertURI, properties } = req.body
 
-  if (title && item_name && author && description && type && assertURI && properties) {
-      next()
+  if (title && item_name && author && description) {
+    next()
   } else {
-      res.status(400).json({ message: 'fields are not good' })
+    res.status(400).json({ message: 'fields are not good' })
   }
 }
 

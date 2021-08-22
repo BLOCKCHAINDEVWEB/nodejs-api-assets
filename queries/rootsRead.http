@@ -1,0 +1,48 @@
+@rootdAddress = 0xcfef4df2832455630F521e6765F8362bF11Fe2BA
+// rootAddressToken5: 0xcfef4df2832455630F521e6765F8362bF11Fe2BA
+@operator = 0xBbD7cBFA79faee899Eaf900F13C9065bF03B1A74
+@owner = 0x43e6B95803ac909f31C46517691cd2e33e298e40
+@from = 0x43e6B95803ac909f31C46517691cd2e33e298e40
+@to = 0x91dDd8332bB2c94661D2192b15B93e27f0fEcEBA
+
+###
+POST http://localhost:3000/api/root/owner-of HTTP/1.1
+content-type: application/json
+
+{
+   "from": "{{from}}",
+   "rootToken": "{{rootdAddress}}",
+   "tokenId": 1
+}
+###
+POST http://localhost:3000/api/root/events HTTP/1.1
+content-type: application/json
+
+{
+   "from": "{{from}}",
+   "rootToken": "{{rootdAddress}}"
+}
+###
+POST http://localhost:3000/api/root/balance HTTP/1.1
+content-type: application/json
+
+{
+   "from": "{{from}}",
+   "rootToken": "{{rootdAddress}}"
+}
+###
+POST http://localhost:3000/api/child/total-supply HTTP/1.1
+content-type: application/json
+
+{
+  "nftAddress": "{{rootdAddress}}"
+}
+###
+POST http://localhost:3000/api/child/is-approval-all HTTP/1.1
+content-type: application/json
+
+{
+  "nftAddress": "{{rootdAddress}}",
+  "owner": "{{owner}}",
+  "operator": "{{operator}}"
+}

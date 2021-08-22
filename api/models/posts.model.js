@@ -1,8 +1,9 @@
-import postsDatas from '../data/posts.json'
+import path from 'path'
+import postsDatas from './posts.json'
 import helper from '../helpers/helper.js'
 
 let posts = postsDatas
-const filename = './data/posts.json'
+const filename = './posts.json'
 
 function getPosts() {
     return new Promise((resolve, reject) => {

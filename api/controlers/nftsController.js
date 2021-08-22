@@ -3,8 +3,8 @@ import path from 'path'
 import { ethers } from 'ethers'
 import * as sigUtil from 'eth-sig-util'
 import * as ethUtil from 'ethereumjs-util'
-// import KoChild from '../artifacts/tokenNFT.json'
-import KoChild from '../artifacts/KoChildMintableERC721.json'
+// import KoChild from '../artifacts4/tokenNFT.json'
+import KoChild from '../artifacts4/KoChildMintableERC721.json'
 
 dotenv.config({ path: path.join(__dirname, '../../.env') })
 
@@ -16,7 +16,7 @@ export const chainId = {
 export const token = {
   name: 'Ko Digital Collectible',
   symbol: 'KODC',
-  version: 1
+  version: '1'
 }
 
 export const getEIP712Type = ({ name, version,verifyingContract, salt, nonce, from, functionSignature }) => {
@@ -82,7 +82,7 @@ export const fctSignTransfertFrom = (from, to, tokenId) => {
 export const getTxDataTransfer = async (contract, datas, privateKey) => {
   const { chainMumbai } = chainId
   const { name, version, childAddress, from, to, tokenId } = datas
-  const nonce = Number(await contract.getNonce(from))
+  const nonce = await contract.getNonce(from)
   const fctSign = fctSignTransfertFrom(from, to, tokenId)
 
   const msgParams = getEIP712Type({
@@ -90,7 +90,7 @@ export const getTxDataTransfer = async (contract, datas, privateKey) => {
     version: version,
     verifyingContract: childAddress,
     salt: '0x'.concat(chainMumbai.toString(16).padStart(64, '0')),
-    nonce: nonce,
+    nonce: 0,
     from: from,
     functionSignature: fctSign
   })
@@ -105,41 +105,6 @@ export const getTxDataTransfer = async (contract, datas, privateKey) => {
   const { r, s, v } = ethUtil.fromRpcSig(sig)
   return { fctSign, r, s, v }
 }
-
-export const fctSignDeposit = (from, depositData) => {
-  const depositFunctionAbi = ["function deposit(address user, bytes calldata depositData)"]
-  const interfaceDepositFunction = new ethers.utils.Interface(depositFunctionAbi)
-  const fctSign = interfaceDepositFunction.encodeFunctionData("deposit", [ from, depositData ])
-  return fctSign
-}
-
-export const getTxDataDeposit = async datas => {
-  const { chainMumbai } = chainId
-  const { name, version, childAddress, from, depositData } = datas
-
-  const nonce = await contract.getNonce(from)
-  const fctSign = fctSignDeposit(from, depositData)
-
-  const msgParams = getEIP712Type({
-    name: name,
-    version: version,
-    verifyingContract: childAddress,
-    salt: '0x'.concat(chainMumbai.toString(16).padStart(64, '0')),
-    nonce: nonce,
-    from: from,
-    functionSignature: fctSign
-  })
-
-  const privateKeyBuffer = Buffer.from(privateKey, "hex")
-  const sig = sigUtil.signTypedData_v4(
-    privateKeyBuffer,
-    { data: JSON.stringify(msgParams) }
-  )
-
-  const { r, s, v } = ethUtil.fromRpcSig(sig)
-  return { fctSign, r, s, v }
-}
-
 
 export const nftContractIsDeploy = async (name, symbol) => {
   try {

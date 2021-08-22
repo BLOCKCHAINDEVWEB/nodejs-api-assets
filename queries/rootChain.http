@@ -1,0 +1,19 @@
+@rootAddress = 0xcfef4df2832455630F521e6765F8362bF11Fe2BA
+// rootAddressToken4:
+// rootAddressToken5: 0xcfef4df2832455630F521e6765F8362bF11Fe2BA
+@from = 0x43e6B95803ac909f31C46517691cd2e33e298e40
+// POSContracts: 
+@predicate = 0x56E14C4C1748a818a5564D33cF774c59EB3eDF59
+// ERC721PredicateProxy: 0x74D83801586E9D3C4dc45FfCD30B54eA9C88cf9b
+// MintableERC721PredicateProxy: 0x56E14C4C1748a818a5564D33cF774c59EB3eDF59
+
+###
+POST http://localhost:3000/api/root/deposit-for HTTP/1.1
+content-type: application/json
+
+{
+   "userAddress": "{{from}}",
+   "rootToken": "{{rootAddress}}",
+   "tokenId": 1
+}
+###

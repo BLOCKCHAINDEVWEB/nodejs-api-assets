@@ -1,4 +1,11 @@
-POST http://localhost:3000/api/child/userDatas HTTP/1.1
+// download: https://marketplace.visualstudio.com/items?itemName=humao.rest-client
+// documentation: https://marketplace.visualstudio.com/items?itemName=humao.rest-client
+
+@childAddress = 0xC13bF24Cc00564fA00C7161ea4DCCDd4E00e1d1C
+// childAddressToken5: 0xC13bF24Cc00564fA00C7161ea4DCCDd4E00e1d1C
+
+###
+POST http://localhost:3000/api/child/userDatasJPG HTTP/1.1
 content-type: application/json
 
 {
@@ -8,42 +15,17 @@ content-type: application/json
   "symbol": "IMG",
   "description": "Token image paysage"
 }
-// return nftAddress
+
 ###
-POST http://localhost:3000/api/child/mint HTTP/1.1
+POST http://localhost:3000/api/child/userDatasMP4 HTTP/1.1
 content-type: application/json
 
 {
   "from": "0x43e6B95803ac909f31C46517691cd2e33e298e40",
-  "metadataUri": "QmZeYychcKrodnKo72JeSNdimeJ6AukrSNaPmsT2NpzdWE",
-  "nftAddress": "0x4A6f2FC2006616542305e39AbAFE8C27385e8B3c"
-}
-###
-POST http://localhost:3000/api/child/execMetadata HTTP/1.1
-content-type: application/json
-
-{
-  "from": "0x43e6B95803ac909f31C46517691cd2e33e298e40",
-  "to": "0xb5505a6d998549090530911180f38aC5130101c6",
-  "tokenId": "1"
+  "upload": "http://localhost:3000/video/bigbuck.mp4",
+  "name": "My token video",
+  "symbol": "MP4",
+  "description": "Token video animation"
 }
 
-###
-POST http://localhost:3000/api/child/transfer HTTP/1.1
-content-type: application/json
-
-{
-  "from": "0x43e6B95803ac909f31C46517691cd2e33e298e40",
-  "to": "0xb5505a6d998549090530911180f38aC5130101c6",
-  "tokenId": "2"
-}
-###
-
-POST http://localhost:3000/api/child/burn HTTP/1.1
-content-type: application/json
-
-{
-  "from": "0x43e6B95803ac909f31C46517691cd2e33e298e40",
-  "tokenId": "1"
-}
 ###
