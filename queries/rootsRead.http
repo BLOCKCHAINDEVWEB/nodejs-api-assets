@@ -1,5 +1,7 @@
-@rootdAddress = 0xcfef4df2832455630F521e6765F8362bF11Fe2BA
+@rootAddress = 0xcfef4df2832455630F521e6765F8362bF11Fe2BA
+// rootAddressToken4: 0x8F24F733790f77849d8023aAd8737F8495C395A4
 // rootAddressToken5: 0xcfef4df2832455630F521e6765F8362bF11Fe2BA
+// rootAddressToken6: 0x1361d78d3375Eb11E0cc5a8a3423E3aC7c2513A5
 @operator = 0xBbD7cBFA79faee899Eaf900F13C9065bF03B1A74
 @owner = 0x43e6B95803ac909f31C46517691cd2e33e298e40
 @from = 0x43e6B95803ac909f31C46517691cd2e33e298e40
@@ -11,7 +13,7 @@ content-type: application/json
 
 {
    "from": "{{from}}",
-   "rootToken": "{{rootdAddress}}",
+   "rootToken": "{{rootAddress}}",
    "tokenId": 1
 }
 ###
@@ -20,7 +22,7 @@ content-type: application/json
 
 {
    "from": "{{from}}",
-   "rootToken": "{{rootdAddress}}"
+   "rootToken": "{{rootAddress}}"
 }
 ###
 POST http://localhost:3000/api/root/balance HTTP/1.1
@@ -28,21 +30,21 @@ content-type: application/json
 
 {
    "from": "{{from}}",
-   "rootToken": "{{rootdAddress}}"
+   "rootToken": "{{rootAddress}}"
 }
 ###
 POST http://localhost:3000/api/child/total-supply HTTP/1.1
 content-type: application/json
 
 {
-  "nftAddress": "{{rootdAddress}}"
+  "nftAddress": "{{rootAddress}}"
 }
 ###
 POST http://localhost:3000/api/child/is-approval-all HTTP/1.1
 content-type: application/json
 
 {
-  "nftAddress": "{{rootdAddress}}",
+  "nftAddress": "{{rootAddress}}",
   "owner": "{{owner}}",
   "operator": "{{operator}}"
 }

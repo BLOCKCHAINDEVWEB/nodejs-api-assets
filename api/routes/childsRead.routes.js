@@ -3,9 +3,9 @@ import path from 'path'
 import express from 'express'
 import { ethers } from 'ethers'
 import config from '../../config'
-import KoChild4 from '../artifacts4/tokenNFT.json'
+// import KoChild4 from '../artifacts4/tokenNFT.json'
 import KoChild5 from '../artifacts5/tokenNFT.json'
-import KoChild6 from '../artifacts6/tokenNFT.json'
+// import KoChild6 from '../artifacts6/tokenNFT.json'
 
 
 const router = express.Router()

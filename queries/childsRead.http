@@ -2,7 +2,9 @@
 // documentation: https://marketplace.visualstudio.com/items?itemName=humao.rest-client
 
 @childAddress = 0xC13bF24Cc00564fA00C7161ea4DCCDd4E00e1d1C
+// childAddressToken4: 0x7573713f12ffD765dfFd1F1D44Abc5D90A121810
 // childAddressToken5: 0xC13bF24Cc00564fA00C7161ea4DCCDd4E00e1d1C
+// childAddressToken6: 0x5e461b51f270947340b71b5d3a9fcB0C47EEb15b
 @operator = 0xBbD7cBFA79faee899Eaf900F13C9065bF03B1A74
 @owner = 0x43e6B95803ac909f31C46517691cd2e33e298e40
 @from = 0x43e6B95803ac909f31C46517691cd2e33e298e40

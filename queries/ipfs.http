@@ -1,3 +1,5 @@
+// download: https://marketplace.visualstudio.com/items?itemName=humao.rest-client
+// documentation: https://marketplace.visualstudio.com/items?itemName=humao.rest-client
 
 POST http://localhost:3000/api/ipfs/pinFilePinata  HTTP/1.1
 content-type: application/json

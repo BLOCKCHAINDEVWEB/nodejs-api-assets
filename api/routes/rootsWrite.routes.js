@@ -3,9 +3,9 @@ import path from 'path'
 import express from 'express'
 import { ethers } from 'ethers'
 import config from '../../config'
-import KoRoot4 from '../artifacts4/KoMintableERC721.json'
+// import KoRoot4 from '../artifacts4/KoMintableERC721.json'
 import KoRoot5 from '../artifacts5/KoMintableERC721.json'
-import KoRoot6 from '../artifacts6/KoMintableERC721.json'
+// import KoRoot6 from '../artifacts6/KoMintableERC721.json'
 import { estimateFeeGas } from '../controlers/nftsController'
 
 
