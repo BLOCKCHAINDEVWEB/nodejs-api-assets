@@ -2,6 +2,7 @@ import path from 'path'
 import fs from 'fs'
 import express from 'express'
 import { html } from './public/html/html'
+import { ImgSVG } from './public/svg/logo.svg'
 require('dotenv').config({ path: path.join(__dirname, '.env') });
 
 const app = express();
@@ -14,11 +15,11 @@ app.get('/', (req, res, next)=>{
 });
 
 // assets renders
-app.use('/img', express.static('./public/img'))
-app.use('/svg-img', express.static('./svg'))
+app.use('/img/Orientation_512x512.jpg', express.static('./public/img/Orientation_512x512.jpg'))
+app.use('/svg-img/logo.svg', express.static(ImgSVG))
 app.use('/html', (req, res) => { res.send(html()) })
-app.get("/video/bigbuck.mp4", function (req, res) {
-  const path = 'video/bigbuck.mp4'
+app.get("/video/yoga.mp4", function (req, res) {
+  const path = './public/video/yoga.mp4'
   const stat = fs.statSync(path)
   const fileSize = stat.size
   const range = req.headers.range
@@ -49,10 +50,10 @@ app.get("/video/bigbuck.mp4", function (req, res) {
 })
 
 // if (process.env.NODE_ENV === 'developement') {
-  const PORT = process.env.PORT || 8080
-  app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}.`)
-  })
+  // const PORT = process.env.PORT || 8080
+  // app.listen(PORT, () => {
+  //   console.log(`Server is running on port ${PORT}.`)
+  // })
 // }
 
-// export default app
+export default app
