@@ -2,7 +2,6 @@ import path from 'path'
 import fs from 'fs'
 import express from 'express'
 import { html } from './api/assets/html/html'
-import routes from './api/index.routes'
 require('dotenv').config({ path: path.join(__dirname, '.env') });
 
 const app = express();
@@ -48,8 +47,6 @@ app.get("/video/bigbuck.mp4", function (req, res) {
     fs.createReadStream(path).pipe(res)
   }
 })
-
-app.use('/api', routes)
 
 // if (process.env.NODE_ENV === 'developement') {
   // const PORT = process.env.PORT || 8080
