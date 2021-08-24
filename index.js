@@ -2,7 +2,6 @@ import path from 'path'
 import fs from 'fs'
 import express from 'express'
 import { html } from './public/html/html'
-import { ImgSVG } from './public/svg/logo.svg'
 require('dotenv').config({ path: path.join(__dirname, '.env') });
 
 const app = express();
@@ -16,7 +15,7 @@ app.get('/', (req, res, next)=>{
 
 // assets renders
 app.use('/img/Orientation_512x512.jpg', express.static('./public/img/Orientation_512x512.jpg'))
-app.use('/svg-img/logo.svg', express.static(ImgSVG))
+app.use('/svg-img/logo.svg', express.static('./public/svg/logo.svg'))
 app.use('/html', (req, res) => { res.send(html()) })
 app.get("/video/yoga.mp4", function (req, res) {
   const path = './public/video/yoga.mp4'
