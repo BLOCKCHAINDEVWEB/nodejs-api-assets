@@ -52,10 +52,10 @@ app.get("/video/bigbuck.mp4", function (req, res) {
 app.use('/api', routes)
 
 // if (process.env.NODE_ENV === 'developement') {
-  // const PORT = process.env.PORT || 8080
-  // app.listen(PORT, () => {
-  //   console.log(`Server is running on port ${PORT}.`)
-  // })
+  const PORT = process.env.PORT || 8080
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}.`)
+  })
 // }
 
-export default app
+// export default app
