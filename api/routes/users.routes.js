@@ -7,7 +7,6 @@ import requestImageSize from 'request-image-size'
 // import ffprobe from 'ffprobe'
 // import ffprobeStatic from 'ffprobe-static'
 import pinata from '../services/pinata'
-import { nftContractIsDeploy } from '../controlers/nftsController'
 
 const router = express.Router()
 dotenv.config({ path: path.resolve(__dirname, '../../.env') })
@@ -18,26 +17,16 @@ router.post('/userDatasJPG', async (req, res) => {
     const { from, upload, name, symbol, description } = req.body
     if (name === '' || symbol === '') return
 
-    // const { height, width, type } = await requestImageSize(upload)
-    const { contractAddress } = await nftContractIsDeploy(name, symbol)
-    // const contractAddress = '0x4A6f2FC2006616542305e39AbAFE8C27385e8B3c'
+    const { height, width, type } = await requestImageSize(upload)
+    
+    // const { contractAddress } = await nftContractIsDeploy(name, symbol)
+    const contractAddress = '0x4A6f2FC2006616542305e39AbAFE8C27385e8B3c'
     console.log(contractAddress)
 
     const fileName = upload.split('/').pop()
     const fileType = fileName.split('.').pop()
 
-    let pathImg
-    switch (fileType) {
-      case 'jpg':
-        pathImg = '../assets/img'
-        break
-      case 'mp4':
-        pathVideo = '../assets/video'
-        break
-      default:
-      break
-    }
-
+    let pathImg = '../assets/img'
     const pathFileName = path.join(__dirname, `${pathImg}/${fileName}`)
     const readableStreamForFile = fs.createReadStream(pathFileName)
 
@@ -131,8 +120,6 @@ router.post('/userDatasMP4', async (req, res) => {
     //   const height = info.streams[0].height
     //   const duration = Math.floor(info.streams[1].duration)
     //   console.log(duration)
-
-      
     // })
 
     res.status(200).json({
