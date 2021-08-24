@@ -17,6 +17,6 @@ router.use('/child', childsRead)
 router.use('/child', childsWrite)
 router.use('/root', rootsWrite)
 router.use('/root', rootsRead)
-router.use('/root', rootsChain)
+router.use('/chain', rootsChain)
 
 export default router

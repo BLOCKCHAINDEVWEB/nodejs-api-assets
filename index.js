@@ -59,4 +59,3 @@ app.use('/api', routes)
 // }
 
 export default app
-

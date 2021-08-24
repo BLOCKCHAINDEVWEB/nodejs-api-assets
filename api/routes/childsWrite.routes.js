@@ -7,6 +7,7 @@ import * as ethUtil from 'ethereumjs-util'
 import config from '../../config'
 import KoChild4 from '../artifacts4/tokenNFT.json'
 import KoChild5 from '../artifacts5/tokenNFT.json'
+import KoChild6 from '../artifacts6/tokenNFT.json'
 import { chainId, token, estimateFeeGas, nftContractIsDeploy } from '../controlers/nftsController'
 
 const router = express.Router()
@@ -26,10 +27,11 @@ const walletChild = new ethers.Wallet(privateKey)
 const signerChild = walletChild.connect(providerChild)
 // const signer = providerChild.getSigner()
 
+
 router.post('/mint', async (req, res) => {
   try {
     const { from, metadataCid, nftAddress } = req.body
-    const childContract = new ethers.Contract(nftAddress , KoChild5.abi , signerChild)
+    const childContract = new ethers.Contract(nftAddress , KoChild6.abi , signerChild)
 
     // const ipfsMetadata = await axios.get(`https://ipfs.io/ipfs/${metadataCid}`)
     // const URI = `ipfs://${ipfsMetadata.data}`
@@ -49,7 +51,7 @@ router.post('/mint', async (req, res) => {
     // const tokenId = txMint.events[0].args[2].toNumber()
     // console.log(tokenId)
 
-    res.status(200).json({ status: 'success' })
+    res.status(200).json({ status: 'success', txHash: respMint.hash })
     // res.status(200).json({
     //   status: 'success',
     //   nftContract: nftContract.address,
@@ -194,7 +196,7 @@ router.post('/approve', async (req, res) => {
     const dataTx = { ERC721Predicate, depositData }
     const { gasPrice, gasLimit } = await estimateFeeGas(providerChild, dataTx)
 
-    const tx = await childContract.approve(ERC721Predicate, tokenId, {
+    const tx = await childContract.approve(owner, tokenId, {
       from: owner,
       gasPrice: gasPrice,
       gasLimit: gasLimit
@@ -289,15 +291,105 @@ router.post('/safe-transfer-from-1', async (req, res) => {
   }
 })
 
+router.post('/deposit', async (req, res) => {
+  try {
+    const { user, nftAddress, rootToken, tokenId } = req.body
+    const abi = ['function deposit(address user, bytes calldata depositData) external']
+    const childContract = new ethers.Contract(nftAddress, abi, signerChild)
+
+    // const tokenIdBN = new ethers.BigNumber.from(tokenId)
+    // console.log(tokenIdBN)
+    const depositData = abiCoder.encode(['uint256'], [tokenId])
+    // console.log(depositData)
+    // console.log(Number(abiCoder.decode(['uint256'], depositData)))
+
+    // const nonce = Number(await childContract.getNonce(user))
+    // console.log(nonce)
+    // console.log(await providerChild.getBlockNumber())
+    // console.log(await providerChild.getTransactionCount(nftAddress))
+
+    // const transferFunctionAbi = ["function deposit(address user, bytes calldata depositData) external"]
+    // const iTransferFunction = new ethers.utils.Interface(transferFunctionAbi)
+    // const fctSign = iTransferFunction.encodeFunctionData("deposit", [rootToken, tokenId])
+
+    // const domainType = [
+    //   { name: "name", type: "string" },
+    //   { name: "version", type: "string" },
+    //   { name: "verifyingContract", type: "address" },
+    //   { name: "salt", type: "bytes32"}
+    // ]
+    // const metaTransactionType = [
+    //    { name: "nonce", type: "uint256" },
+    //    { name: "from", type: "address" },
+    //    { name: "fctSign", type: "bytes" }
+    // ]
+    // const domainData = {
+    //   name: name,
+    //   version: version,
+    //   verifyingContract: nftAddress,
+    //   salt: '0x'.concat(chainMumbai.toString(16).padStart(64, '0'))
+    // }
+  
+    // const msgParams = {
+    //   types: {
+    //     EIP712Domain: domainType,
+    //     MetaTransaction: metaTransactionType
+    //   },
+    //   domain: domainData,
+    //   primaryType: "MetaTransaction",
+    //   message: {
+    //     nonce: 0,
+    //     from: user,
+    //     fctSign: fctSign
+    //   }
+    // }
+
+    const dataTx = { user, depositData }
+    const { gasPrice, gasLimit } = await estimateFeeGas(providerChild, dataTx)
+
+    const tx = await childContract.deposit(rootToken, depositData, {
+      from: user,
+      gasPrice: gasPrice,
+      gasLimit: gasLimit
+    })
+    console.log(tx)
+
+    res.status(200).json({ status: 'success' })
+    // res.status(200).json({ status: 'success', txHash: tx.hash })
+  } catch (err) {
+    res.status(500).json({ message: err.message })
+  }
+})
+
 router.post('/burn', async (req, res) => {
   try {
     const { from, nftAddress, tokenId } = req.body
     const childContract = new ethers.Contract(nftAddress , KoChild5.abi , signerChild)
 
     const burnTx = await childContract.withdraw(tokenId, {
+      from: from,
+      gasPrice: 50000,
+      gasLimit: 50000
+    })
+    burnTx.wait()
+    console.log(burnTx)
+    // console.log(burnTx.transactionHash)
+
+    res.status(200).json({ status: 'success', txHash: burnTx.transactionHash })
+  } catch (err) {
+    res.status(500).json({ message: err.message })
+  }
+})
+
+router.post('/exits', async (req, res) => {
+  try {
+    const { from, nftAddress, tokenId } = req.body
+    const childContract = new ethers.Contract(nftAddress , KoChild5.abi , signerChild)
+
+    const exitTx = await childContract.exits(tokenId, {
       from: from
     })
-    console.log(burnTx.transactionHash)
+    console.log(exitTx.transactionHash)
 
     res.status(200).json({ status: 'success', txHash: burnTx.transactionHash })
   } catch (err) {

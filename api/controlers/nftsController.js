@@ -3,8 +3,8 @@ import path from 'path'
 import { ethers } from 'ethers'
 import * as sigUtil from 'eth-sig-util'
 import * as ethUtil from 'ethereumjs-util'
-// import KoChild from '../artifacts4/tokenNFT.json'
-import KoChild from '../artifacts4/KoChildMintableERC721.json'
+// import KoChild from '../artifacts/KoChildMintableERC721.json'
+import KoChild6 from '../artifacts6/tokenNFT.json'
 
 dotenv.config({ path: path.join(__dirname, '../../.env') })
 
@@ -117,7 +117,7 @@ export const nftContractIsDeploy = async (name, symbol) => {
     const walletChild = new ethers.Wallet(privateKey)
     const signerChild = walletChild.connect(providerChild)
     // The factory we use for deploying contracts
-    const factory = new ethers.ContractFactory(KoChild.abi, KoChild.bytecode, signerChild)
+    const factory = new ethers.ContractFactory(KoChild6.abi, KoChild6.bytecode, signerChild)
     // Deploy an instance of the contract
     const childNftContract = await factory.deploy(name, symbol, childChainManager)
     // The transaction that the signer sent to deploy
