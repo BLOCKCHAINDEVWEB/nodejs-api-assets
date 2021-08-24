@@ -2,7 +2,7 @@ import fs from 'fs'
 import express from 'express'
 import pinata from '../services/pinata'
 import Ipfs from '../services/ipfs'
-import { ReadableStream } from 'node-web-streams'
+// import { ReadableStream } from 'node-web-streams'
 
 const router = express.Router()
 
@@ -61,69 +61,67 @@ router.post('/pinHashPinata', async (req, res) => {
 })
 
 
-if (process.env.NODE_ENV === 'developement') {
-  // may take a while to load as public gateways can be very slow
-  router.post('/ipfsText', async (req, res) => {
-    try {
-      const addFile = async (text) => {
-        const file = { path: 'testfile', content: Buffer.from(text)}
-        const { path, cid, size } = await Ipfs.add(file)
-        return { path, cid, size }
-      }
+// // may take a while to load as public gateways can be very slow
+// router.post('/ipfsText', async (req, res) => {
+//   try {
+//     const addFile = async (text) => {
+//       const file = { path: 'testfile', content: Buffer.from(text)}
+//       const { path, cid, size } = await Ipfs.add(file)
+//       return { path, cid, size }
+//     }
 
-      const createFiles = async (directory) => {
-        // const json = JSON.stringify({ content: 'Loreum ipsum' })
-        // const fileHash = await addFile(json)
-        // console.log(fileHash.cid)
-        return [{
-          path: `${directory}/file1.txt`,
-          // content could be a stream, a url, a Uint8Array, a File etc
-          content: `one`
-        }, {
-          path: `${directory}/file2.txt`,
-          content: 'two'
-        }, {
-          path: `${directory}/file3.txt`,
-          content: 'tree'
-        }]
-      }
-      
-      const streamFiles = async (ipfs, directory, files) => {
-        // Create a stream to write files to
-        const stream = new ReadableStream({
-          start(controller) {
-            files.map((file, i) => {
-              controller.enqueue(files[i])
-            })
-            controller.close()
-          }
-        })
-      
-        const data = await ipfs.add(stream)
-        console.log(data)
-        console.log(`Added ${data.path} hash: ${data.cid}`)
-        // The last data event will contain the directory hash
-        if (data.path === directory) return data.cid
-      }
+//     const createFiles = async (directory) => {
+//       // const json = JSON.stringify({ content: 'Loreum ipsum' })
+//       // const fileHash = await addFile(json)
+//       // console.log(fileHash.cid)
+//       return [{
+//         path: `${directory}/file1.txt`,
+//         // content could be a stream, a url, a Uint8Array, a File etc
+//         content: `one`
+//       }, {
+//         path: `${directory}/file2.txt`,
+//         content: 'two'
+//       }, {
+//         path: `${directory}/file3.txt`,
+//         content: 'tree'
+//       }]
+//     }
+    
+//     const streamFiles = async (ipfs, directory, files) => {
+//       // Create a stream to write files to
+//       const stream = new ReadableStream({
+//         start(controller) {
+//           files.map((file, i) => {
+//             controller.enqueue(files[i])
+//           })
+//           controller.close()
+//         }
+//       })
+    
+//       const data = await ipfs.add(stream)
+//       console.log(data)
+//       console.log(`Added ${data.path} hash: ${data.cid}`)
+//       // The last data event will contain the directory hash
+//       if (data.path === directory) return data.cid
+//     }
 
-      const directoryName = 'directory'
-      const files = await createFiles(directoryName)
-      const directoryHash = await streamFiles(Ipfs, directoryName, files)
-      console.log(`${directoryName}/ ${directoryHash}`)
+//     const directoryName = 'directory'
+//     const files = await createFiles(directoryName)
+//     const directoryHash = await streamFiles(Ipfs, directoryName, files)
+//     console.log(`${directoryName}/ ${directoryHash}`)
 
-      // let index = 0
-      // const ipfsList = Ipfs.ls(directoryHash)
-      // console.log(ipfsList)
-      // for await (const file of ipfsList) {
-      //   console.log(` ${index < inputFiles.length - 1 ? '\u251C' : '\u2514'}\u2500 ${file.name} ${file.path} ${file.cid}`)
-      //   index++
-      // }
+//     // let index = 0
+//     // const ipfsList = Ipfs.ls(directoryHash)
+//     // console.log(ipfsList)
+//     // for await (const file of ipfsList) {
+//     //   console.log(` ${index < inputFiles.length - 1 ? '\u251C' : '\u2514'}\u2500 ${file.name} ${file.path} ${file.cid}`)
+//     //   index++
+//     // }
 
-      res.status(200).json({ success: 'success' })
-    } catch (err) {
-      return res.status(500).json({ message: err.message })
-    }
-  })
-}
+//     res.status(200).json({ success: 'success' })
+//   } catch (err) {
+//     return res.status(500).json({ message: err.message })
+//   }
+// })
 
 export default router
