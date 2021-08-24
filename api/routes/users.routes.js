@@ -4,10 +4,10 @@ import fs from 'fs'
 import express from 'express'
 import axios from 'axios'
 import requestImageSize from 'request-image-size'
-// import ffprobe from 'ffprobe'
-// import ffprobeStatic from 'ffprobe-static'
+import ffprobe from 'ffprobe'
+import ffprobeStatic from 'ffprobe-static'
 import pinata from '../services/pinata'
-import { nftContractIsDeploy } from '../controlers/nftsController'
+// import { nftContractIsDeploy } from '../controlers/nftsController'
 
 const router = express.Router()
 dotenv.config({ path: path.resolve(__dirname, '../../.env') })
@@ -18,9 +18,9 @@ router.post('/userDatasJPG', async (req, res) => {
     const { from, upload, name, symbol, description } = req.body
     if (name === '' || symbol === '') return
 
-    // const { height, width, type } = await requestImageSize(upload)
-    const { contractAddress } = await nftContractIsDeploy(name, symbol)
-    // const contractAddress = '0x4A6f2FC2006616542305e39AbAFE8C27385e8B3c'
+    const { height, width, type } = await requestImageSize(upload)
+    // const { contractAddress } = await nftContractIsDeploy(name, symbol)
+    const contractAddress = '0x4A6f2FC2006616542305e39AbAFE8C27385e8B3c'
     console.log(contractAddress)
 
     const fileName = upload.split('/').pop()
