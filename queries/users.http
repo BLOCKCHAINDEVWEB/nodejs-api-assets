@@ -1,0 +1,28 @@
+// download: https://marketplace.visualstudio.com/items?itemName=humao.rest-client
+// documentation: https://marketplace.visualstudio.com/items?itemName=humao.rest-client
+
+@pathURL = http://localhost:3000
+
+###
+POST {{pathURL}}/api/child/userDatasJPG HTTP/1.1
+content-type: application/json
+
+{
+  "from": "0x43e6B95803ac909f31C46517691cd2e33e298e40",
+  "upload": "https://storage.cloud.google.com/node-api-assets/Orientation_512x512.jpg",
+  "name": "My token image",
+  "symbol": "IMG",
+  "description": "Token image paysage"
+}
+
+###
+POST {{pathURL}}/api/child/userDatasMP4 HTTP/1.1
+content-type: application/json
+
+{
+  "from": "0x43e6B95803ac909f31C46517691cd2e33e298e40",
+  "upload": "https://storage.cloud.google.com/node-api-assets/yoga.mp4",
+  "name": "My token video",
+  "symbol": "MP4",
+  "description": "Token video animation"
+}

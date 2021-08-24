@@ -1,0 +1,44 @@
+
+// download: https://marketplace.visualstudio.com/items?itemName=humao.rest-client
+// documentation: https://marketplace.visualstudio.com/items?itemName=humao.rest-client
+
+@pathURL = http://localhost:3000
+
+###
+GET {{pathURL}}/api/posts  HTTP/1.1
+###
+GET {{pathURL}}/api/posts/2  HTTP/1.1
+###
+POST {{pathURL}}/api/posts  HTTP/1.1
+content-type: application/json
+
+{
+  "title":"title",
+  "item_name": "nft",
+  "author": "author",
+  "description": "description",
+  "type": "",
+  "assertURI": "",
+  "properties": {
+    "width": "",
+    "height": ""
+  }
+}
+###
+PUT {{pathURL}}/api/posts/2  HTTP/1.1
+content-type: application/json
+
+{
+  "title":"title",
+  "item_name": "nft",
+  "author": "author",
+  "description": "description",
+  "type": "",
+  "assertURI": "",
+  "properties": {
+    "width": "",
+    "height": ""
+  }
+}
+###
+DELETE {{pathURL}}/api/posts/2  HTTP/1.1
