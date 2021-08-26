@@ -60,7 +60,6 @@ router.post('/pinHashPinata', async (req, res) => {
   }
 })
 
-
 // may take a while to load as public gateways can be very slow
 router.post('/ipfsText', async (req, res) => {
   try {
