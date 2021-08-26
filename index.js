@@ -61,4 +61,4 @@ if (env === 'development') {
 
 app.use('/api', routes)
 
-// export default app
+export default app
