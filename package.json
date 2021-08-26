@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=production node -r esm index.js",
+    "start": "node -r esm index.js",
     "start:ipfs": "node -r esm src/ipfsMetadata.js",
     "dev": "cross-env NODE_ENV=development nodemon -r esm index.js"
   },

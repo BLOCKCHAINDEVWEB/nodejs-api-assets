@@ -13,7 +13,7 @@ dotenv.config({ path: path.resolve(__dirname, '../../.env') })
 const env = process.env.NODE_ENV || 'development'
 
 // need nodejs server host for production
-if (env === 'developement') {
+if (env === 'development') {
   router.post('/userDatasJPG', async (req, res) => {
     try{
       const { from, upload, name, symbol, description } = req.body

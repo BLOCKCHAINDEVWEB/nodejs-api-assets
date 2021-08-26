@@ -9,8 +9,7 @@ const router = express.Router()
 // source: https://github.com/PinataCloud/Pinata-SDK#pinJSONToIPFS-anchor
 router.post('/pinFilePinata', async (req, res) => {
   try {
-    // const file = req.body.file
-    const file = '../nodejs-api-assets/queries/inputs/Orientation_512x512.jpg'
+    const { file } = req.body
     const readableStreamForFile = fs.createReadStream(file)
     const options = {
       pinataMetadata: {
@@ -108,14 +107,6 @@ router.post('/ipfsText', async (req, res) => {
     const files = await createFiles(directoryName)
     const directoryHash = await streamFiles(Ipfs, directoryName, files)
     console.log(`${directoryName}/ ${directoryHash}`)
-
-    // let index = 0
-    // const ipfsList = Ipfs.ls(directoryHash)
-    // console.log(ipfsList)
-    // for await (const file of ipfsList) {
-    //   console.log(` ${index < inputFiles.length - 1 ? '\u251C' : '\u2514'}\u2500 ${file.name} ${file.path} ${file.cid}`)
-    //   index++
-    // }
 
     res.status(200).json({ success: 'success' })
   } catch (err) {

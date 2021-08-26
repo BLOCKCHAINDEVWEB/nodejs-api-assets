@@ -14,6 +14,8 @@ app.get('/', (req, res, next)=>{
   res.status(404).json({name: 'API', version: '1.0', status: 404, message: 'not_found'});
 });
 
+app.use('/api', routes)
+
 const env = process.env.NODE_ENV || 'development'
 
 if (env === 'development') {
@@ -56,9 +58,6 @@ if (env === 'development') {
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`)
   })
-
 }
-
-app.use('/api', routes)
 
 export default app
