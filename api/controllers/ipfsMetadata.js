@@ -1,4 +1,3 @@
-import dotenv from 'dotenv'
 import path from 'path'
 import fs from 'fs'
 import axios from 'axios'
@@ -8,7 +7,7 @@ import ffprobe from 'ffprobe'
 import ffprobeStatic from 'ffprobe-static'
 import pinata from '../services/pinata'
 import ipfs from '../services/ipfs'
-dotenv.config({ path: path.join(__dirname, '../.env') })
+require('dotenv').config({ path: path.join(__dirname, '../.env') })
 
 // export const update = async (params, newInfos) => {
 //   try {
