@@ -18,7 +18,7 @@ app.use('/api', routes)
 
 const env = process.env.NODE_ENV || 'development'
 
-if (env === 'development') {
+if (env !== 'production') {
   // assets renders
   app.use('/img', express.static('./api/assets/img'))
   app.use('/svg-img', express.static('./api/assets/svg'))
