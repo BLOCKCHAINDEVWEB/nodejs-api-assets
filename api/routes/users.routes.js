@@ -20,8 +20,7 @@ if (env !== 'production') {
       if (name === '' || symbol === '') return
   
       const { height, width, type } = await requestImageSize(upload)
-      const contractAddress = '0x4A6f2FC2006616542305e39AbAFE8C27385e8B3c'
-      console.log(contractAddress)
+      console.log({ type: type, width: width, height: height })
   
       const fileName = upload.split('/').pop()
       const fileType = fileName.split('.').pop()
@@ -47,8 +46,8 @@ if (env !== 'production') {
         description: description,
         assertURI: `ipfs://${hashImg.IpfsHash}`,
         properties: {
-          width: '',
-          height: ''
+          width: width,
+          height: height
         }
       }
     
@@ -95,11 +94,8 @@ if (env !== 'production') {
   // need nodejs server host
   router.post('/userDatasMP4', async (req, res) => {
     try {
-      const { from, upload, name, symbol, description } = req.body
+      const { from, upload, name, symbol } = req.body
       if (name === '' || symbol === '') return
-  
-      const contractAddress = '0x4A6f2FC2006616542305e39AbAFE8C27385e8B3c'
-      console.log(contractAddress)
   
       const fileName = upload.split('/').pop()
       const pathVideo = '../assets/video'
@@ -113,21 +109,16 @@ if (env !== 'production') {
           name: 'Filename',
         }
       })
-      console.log(hashVideo) // QmVzmsRo6avD1HeBWY3WTUGdqvhya4KK999k77nFZS7i2S
+      console.log('hashVideo:', hashVideo) // QmVzmsRo6avD1HeBWY3WTUGdqvhya4KK999k77nFZS7i2S
   
-      // await ffprobe(upload, { path: ffprobeStatic.path }, async (err, info) => {
-      //   const width = info.streams[0].width
-      //   const height = info.streams[0].height
-      //   const duration = Math.floor(info.streams[1].duration)
-      //   console.log(duration)
-      // })
-  
-      res.status(200).json({
-        status: 'success',
-        // nftAddress: contractAddress,
-        // hash: hashJSON.IpfsHash,
-        // update: msg
+      await ffprobe(upload, { path: ffprobeStatic.path }, async (err, info) => {
+        const width = info.streams[0].width
+        const height = info.streams[0].height
+        const duration = Math.floor(info.streams[1].duration)
+        console.log({ duration: duration, width: width, height: height })
       })
+  
+      res.status(200).json({ status: 'success', hash: hashJSON.IpfsHash })
     } catch (err) {
       res.status(500).json({ message: err.message })
     }

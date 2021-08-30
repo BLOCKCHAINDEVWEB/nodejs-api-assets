@@ -1,7 +1,7 @@
 // download: https://marketplace.visualstudio.com/items?itemName=humao.rest-client
 // documentation: https://marketplace.visualstudio.com/items?itemName=humao.rest-client
 
-@pathURL = http://localhost:3000
+@pathURL = http://localhost:3002
 
 ###
 // need nodejs server host for production
@@ -25,6 +25,5 @@ content-type: application/json
   "from": "0x43e6B95803ac909f31C46517691cd2e33e298e40",
   "upload": "{{pathURL}}/video/yoga.mp4",
   "name": "My token video",
-  "symbol": "MP4",
-  "description": "Token video animation"
+  "symbol": "MP4"
 }

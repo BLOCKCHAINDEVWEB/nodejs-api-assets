@@ -1,7 +1,7 @@
 // download: https://marketplace.visualstudio.com/items?itemName=humao.rest-client
 // documentation: https://marketplace.visualstudio.com/items?itemName=humao.rest-client
 
-@pathURL = http://localhost:3000
+@pathURL = http://localhost:3002
 
 ###
 POST {{pathURL}}/api/ipfs/pinFilePinata  HTTP/1.1
@@ -47,11 +47,74 @@ pinata_api_key: 7d7e3c042e0e43eac657
 pinata_secret_api_key: cd8123ee3649aec0e3ba380b1588376bc20c3c520fecba6ed41819058d79ae8b
 
 {
-  "hashToPin": "QmaQNPLWTSKNXCvzURSi3WrkywJ1qcnYC56Dw1XMrxYZ7Z"
+  "hashToPin": "QmcYQStiHy2UJZg4AdDPuX1RuMh7zuaLmLkgRRXDMWk7eT"
 }
 ###
-// Work In Progress
 POST {{pathURL}}/api/ipfs/ipfsText  HTTP/1.1
 content-type: application/json
 
-{}
+{
+  "filesURL": [
+    {
+      "url1": "{{pathURL}}/text/file1.txt"
+    },
+    {
+      "url2": "{{pathURL}}/svg-img/circle.svg"
+    },
+    {
+      "url3": "{{pathURL}}/json/metadata.json"
+    }
+  ]
+}
+###
+// Work In Progress
+POST {{pathURL}}/api/ipfs/ipfsMedia  HTTP/1.1
+content-type: application/json
+
+{
+  "filesURL": [
+    {
+      "url1": "{{pathURL}}/img/Orientation_512x512.jpg"
+    },
+    {
+      "url2": "https://lasonotheque.org/UPLOAD/mp3/0564.mp3"
+    },
+    {
+      "url3": "{{pathURL}}/video/yoga.mp4"
+    }
+  ]
+}
+###
+POST {{pathURL}}/api/ipfs/ipfsRead  HTTP/1.1
+content-type: application/json
+
+{
+  "directoryHash": "/ipfs/QmSCUT8ne1poxsafCMnbhBWMucp7iiir65hrJcXcnipvw5",
+  "file": "file2.txt"
+}
+###
+POST {{pathURL}}/api/ipfs/ipfsDemo  HTTP/1.1
+content-type: application/json
+
+{
+  "filesURL": [
+    {
+      "url1": "{{pathURL}}/text/file1.txt"
+    },
+    {
+      "url2": "{{pathURL}}/svg-img/circle.svg"
+    },
+    {
+      "url3": "{{pathURL}}/json/metadata.json"
+    },
+    {
+      "url4": "{{pathURL}}/img/Orientation_512x512.jpg"
+    },
+    {
+      "url5": "https://lasonotheque.org/UPLOAD/mp3/0564.mp3"
+    },
+    {
+      "url6": "{{pathURL}}/video/yoga.mp4"
+    }
+  ]
+}

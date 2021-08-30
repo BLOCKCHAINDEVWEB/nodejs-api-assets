@@ -2,7 +2,7 @@
 // download: https://marketplace.visualstudio.com/items?itemName=humao.rest-client
 // documentation: https://marketplace.visualstudio.com/items?itemName=humao.rest-client
 
-@pathURL = http://localhost:3000
+@pathURL = http://localhost:3002
 
 ###
 GET {{pathURL}}/api/posts  HTTP/1.1
