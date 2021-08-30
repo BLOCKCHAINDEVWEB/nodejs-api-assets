@@ -1,5 +1,12 @@
-{ 
-  "nom" : "Ma boussole", 
-  "description" : "Ceci est une boussole", 
-  "image" : "ipfs://QmTjV2jUubonFoPZBQU6Yy8wcgxvwHWqZe7efAMzDcW4Hv" 
+{
+  "title":"Ma boussole",
+  "item_name": "boussole",
+  "author": "Simon",
+  "description": "Ceci est ma boussole.",
+  "type": "JPG",
+  "assertURI": "ipfs://QmTjV2jUubonFoPZBQU6Yy8wcgxvwHWqZe7efAMzDcW4Hv",
+  "properties": {
+    "width": 512,
+    "height": 512
+  }
 }

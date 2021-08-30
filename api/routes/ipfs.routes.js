@@ -1,16 +1,13 @@
 import fs from 'fs'
-import path from 'path'
 import { Buffer } from 'buffer'
 import express from 'express'
 import fetch from 'node-fetch'
 import pinata from '../services/pinata'
 import Ipfs from '../services/ipfs'
 import { ReadableStream } from 'node-web-streams'
-import { waitForDebugger } from 'inspector'
 
 const router = express.Router()
 
-// source: https://github.com/PinataCloud/Pinata-SDK#pinJSONToIPFS-anchor
 router.post('/pinFilePinata', async (req, res) => {
   try {
     const { file } = req.body
@@ -116,7 +113,7 @@ router.post('/ipfsText', async (req, res) => {
       })
     
       const data = await ipfs.add(stream)
-      console.log(`Added ${data.path} hash: ${data.cid}`) // QmYT6vscRR76WMZds7WhStPPMnT7tHncunanjhBUKgfNYm
+      console.log(`Added ${data.path} hash: ${data.cid}`) // Qmbx2xeRE8vMueiySt49VsENJd7TLzgkQh5vzyNNcJvriz
       // The last data event will contain the directory hash
       if (data.path === directory) return data.cid
     }
@@ -124,7 +121,7 @@ router.post('/ipfsText', async (req, res) => {
     const directoryName = 'directory'
     const files = await createFiles(directoryName)
     const directoryHash = await streamFiles(Ipfs, directoryName, files)
-    console.log(`${directoryName}/ ${directoryHash}`)  // directory/ QmYT6vscRR76WMZds7WhStPPMnT7tHncunanjhBUKgfNYm
+    console.log(`${directoryName}/ ${directoryHash}`)  // directory/ Qmbx2xeRE8vMueiySt49VsENJd7TLzgkQh5vzyNNcJvriz
 
     res.status(200).json({ success: 'success' })
   } catch (err) {
@@ -202,7 +199,7 @@ router.post('/ipfsMedia', async (req, res) => {
       })
     
       const data = await ipfs.add(stream)
-      console.log(`Added ${data.path} hash: ${data.cid}`) // QmVv6EQnSFnxrjYahqHuzLpNTG5y2cqG7bgeQRrup8QuRe
+      console.log(`Added ${data.path} hash: ${data.cid}`) // QmUbTUX8brCHmhy3xPVCYHen1cx3H1p1NG3V6zUXUFbHeH
       // The last data event will contain the directory hash
       if (data.path === directory) return data.cid
     }
@@ -210,7 +207,7 @@ router.post('/ipfsMedia', async (req, res) => {
     const directoryName = 'directory'
     const files = await createFiles(directoryName)
     const directoryHash = await streamFiles(Ipfs, directoryName, files)
-    console.log(`${directoryName}/ ${directoryHash}`)  // directory/ QmVv6EQnSFnxrjYahqHuzLpNTG5y2cqG7bgeQRrup8QuRe
+    console.log(`${directoryName}/ ${directoryHash}`)  // directory/ QmUbTUX8brCHmhy3xPVCYHen1cx3H1p1NG3V6zUXUFbHeH
   
     res.status(200).json({ success: 'success' })
   } catch (err) {
@@ -221,12 +218,13 @@ router.post('/ipfsMedia', async (req, res) => {
 router.post('/ipfsRead', async (req, res) => {
   try {
     const { directoryHash, file } = req.body
+    let message
 
     for await (const item of Ipfs.cat(`${directoryHash}/${file}`)) {
-      console.log(item.toString())
+      message = item.toString()
     }
 
-    res.status(200).json({ success: 'success' })
+    res.status(200).json({ success: 'success', message: message })
   } catch (err) {
     return res.status(500).json({ message: err.message })
   }
@@ -302,7 +300,7 @@ router.post('/ipfsDemo', async (req, res) => {
       })
     
       const data = await ipfs.add(stream)
-      console.log(`Added ${data.path} hash: ${data.cid}`) // QmcYQStiHy2UJZg4AdDPuX1RuMh7zuaLmLkgRRXDMWk7eT
+      console.log(`Added ${data.path} hash: ${data.cid}`) // QmNMC4tAx8ZcqFHTJPtP4v8zZigaMPx1HiTWb2iApkjM5T
       // The last data event will contain the directory hash
       if (data.path === directory) return data.cid
     }
@@ -310,7 +308,7 @@ router.post('/ipfsDemo', async (req, res) => {
     const directoryName = 'directory'
     const files = await createFiles(directoryName)
     const directoryHash = await streamFiles(Ipfs, directoryName, files)
-    console.log(`${directoryName}/ ${directoryHash}`)  // directory/ QmcYQStiHy2UJZg4AdDPuX1RuMh7zuaLmLkgRRXDMWk7eT
+    console.log(`${directoryName}/ ${directoryHash}`)  // directory/ QmNMC4tAx8ZcqFHTJPtP4v8zZigaMPx1HiTWb2iApkjM5T
 
     res.status(200).json({ success: 'success' })
   } catch (err) {

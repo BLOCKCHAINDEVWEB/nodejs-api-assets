@@ -1,6 +1,3 @@
-// download: https://marketplace.visualstudio.com/items?itemName=humao.rest-client
-// documentation: https://marketplace.visualstudio.com/items?itemName=humao.rest-client
-
 @pathURL = http://localhost:3002
 
 ###
